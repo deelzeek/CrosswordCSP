@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina4_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="CrosswordGeneratorCSP" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
+                        <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
+                    </layoutGuides>
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Pu-D5-sQ0" customClass="SKView">
+                                <rect key="frame" x="28" y="10" width="356.5" height="356"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="2Pu-D5-sQ0" secondAttribute="height" multiplier="1:1" id="fV1-6M-bcq"/>
+                                </constraints>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zfs-aC-y5G">
+                                <rect key="frame" x="429.5" y="204" width="217.5" height="150"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSV-Ds-icb">
+                                <rect key="frame" x="429.5" y="40" width="217.5" height="30"/>
+                                <color key="backgroundColor" red="0.197447174" green="0.87447376939999999" blue="0.40071712329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Create crossword">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCreateCross:" destination="BV1-FR-VrT" eventType="touchUpInside" id="HaY-z8-o8y"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XVX-D9-FJj">
+                                <rect key="frame" x="429.5" y="78" width="217.5" height="30"/>
+                                <color key="backgroundColor" red="0.197447174" green="0.87447376939999999" blue="0.40071712329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Backtracking">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onBacktrackAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="SR0-XO-cuk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X6M-Zn-NmI">
+                                <rect key="frame" x="429.5" y="116" width="217.5" height="30"/>
+                                <color key="backgroundColor" red="0.197447174" green="0.87447376939999999" blue="0.40071712329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Forward Checking">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onForwardtreackAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="oJd-oW-ISZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.14445029145077726" green="0.14445029145077726" blue="0.14445029145077726" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="X6M-Zn-NmI" firstAttribute="top" secondItem="XVX-D9-FJj" secondAttribute="bottom" constant="8" symbolic="YES" id="1xU-tI-ZQw"/>
+                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="zfs-aC-y5G" secondAttribute="bottom" constant="21" id="4Ym-qs-G6i"/>
+                            <constraint firstItem="vSV-Ds-icb" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" constant="20" id="6AY-zi-FlK"/>
+                            <constraint firstItem="zfs-aC-y5G" firstAttribute="trailing" secondItem="3se-qz-xqx" secondAttribute="trailingMargin" id="7kx-ux-zyd"/>
+                            <constraint firstItem="XVX-D9-FJj" firstAttribute="centerX" secondItem="vSV-Ds-icb" secondAttribute="centerX" id="8cT-5c-xes"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="X6M-Zn-NmI" secondAttribute="trailing" id="CAU-oR-emL"/>
+                            <constraint firstItem="2Pu-D5-sQ0" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" constant="8" id="J73-Nf-cN4"/>
+                            <constraint firstItem="vSV-Ds-icb" firstAttribute="leading" secondItem="2Pu-D5-sQ0" secondAttribute="trailing" constant="45" id="KMG-Ph-p9v"/>
+                            <constraint firstItem="2Pu-D5-sQ0" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="Lfm-97-xKs"/>
+                            <constraint firstItem="vSV-Ds-icb" firstAttribute="centerX" secondItem="zfs-aC-y5G" secondAttribute="centerX" id="Olc-eH-ReG"/>
+                            <constraint firstItem="XVX-D9-FJj" firstAttribute="trailing" secondItem="3se-qz-xqx" secondAttribute="trailingMargin" id="YOj-Bf-kkI"/>
+                            <constraint firstItem="zfs-aC-y5G" firstAttribute="leading" secondItem="2Pu-D5-sQ0" secondAttribute="trailing" constant="45.5" id="e36-WE-oDn"/>
+                            <constraint firstItem="XVX-D9-FJj" firstAttribute="top" secondItem="vSV-Ds-icb" secondAttribute="bottom" constant="8" symbolic="YES" id="gKE-Uv-zxt"/>
+                            <constraint firstItem="XVX-D9-FJj" firstAttribute="leading" secondItem="2Pu-D5-sQ0" secondAttribute="trailing" constant="45" id="jpq-41-c2C"/>
+                            <constraint firstItem="X6M-Zn-NmI" firstAttribute="centerX" secondItem="XVX-D9-FJj" secondAttribute="centerX" id="l7J-sW-5vL"/>
+                            <constraint firstItem="vSV-Ds-icb" firstAttribute="trailing" secondItem="3se-qz-xqx" secondAttribute="trailingMargin" id="mMr-iK-SHX"/>
+                            <constraint firstItem="X6M-Zn-NmI" firstAttribute="leading" secondItem="2Pu-D5-sQ0" secondAttribute="trailing" constant="45" id="qBl-cQ-PKn"/>
+                            <constraint firstItem="zfs-aC-y5G" firstAttribute="height" secondItem="3se-qz-xqx" secondAttribute="height" multiplier="0.4" id="s5I-er-yaN"/>
+                            <constraint firstItem="2Pu-D5-sQ0" firstAttribute="height" secondItem="3se-qz-xqx" secondAttribute="height" multiplier="0.95" id="ugj-Mc-jLD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btBacktrack" destination="XVX-D9-FJj" id="rfZ-mu-uBw"/>
+                        <outlet property="btForwardtrack" destination="X6M-Zn-NmI" id="TAT-tx-RKE"/>
+                        <outlet property="createCross" destination="vSV-Ds-icb" id="hzA-Gc-pJu"/>
+                        <outlet property="crosswordView" destination="2Pu-D5-sQ0" id="9hj-Yn-Icd"/>
+                        <outlet property="wordsView" destination="zfs-aC-y5G" id="yHD-ce-qH9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.28185907046478" y="135.19999999999999"/>
+        </scene>
+    </scenes>
+</document>
