@@ -1,0 +1,389 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		163B536C1EA3DB4900732452 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B536B1EA3DB4900732452 /* AppDelegate.swift */; };
+		163B536E1EA3DB4900732452 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 163B536D1EA3DB4900732452 /* GameScene.sks */; };
+		163B53701EA3DB4900732452 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 163B536F1EA3DB4900732452 /* Actions.sks */; };
+		163B53721EA3DB4900732452 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53711EA3DB4900732452 /* GameScene.swift */; };
+		163B53741EA3DB4900732452 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53731EA3DB4900732452 /* GameViewController.swift */; };
+		163B53771EA3DB4900732452 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 163B53751EA3DB4900732452 /* Main.storyboard */; };
+		163B53791EA3DB4900732452 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 163B53781EA3DB4900732452 /* Assets.xcassets */; };
+		163B537C1EA3DB4900732452 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 163B537A1EA3DB4900732452 /* LaunchScreen.storyboard */; };
+		163B53861EA3DB6400732452 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53831EA3DB6400732452 /* Array2D.swift */; };
+		163B53871EA3DB6400732452 /* ArrayShuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53841EA3DB6400732452 /* ArrayShuffle.swift */; };
+		163B53881EA3DB6400732452 /* CrosswordsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53851EA3DB6400732452 /* CrosswordsGenerator.swift */; };
+		163B53B81EA4052A00732452 /* Cookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53B71EA4052A00732452 /* Cookie.swift */; };
+		163B53BA1EA4053200732452 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53B91EA4053200732452 /* Level.swift */; };
+		163B53BC1EA4059100732452 /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 163B53BB1EA4059100732452 /* Sprites.atlas */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		163B53681EA3DB4900732452 /* CrosswordGeneratorCSP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrosswordGeneratorCSP.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		163B536B1EA3DB4900732452 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		163B536D1EA3DB4900732452 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		163B536F1EA3DB4900732452 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		163B53711EA3DB4900732452 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		163B53731EA3DB4900732452 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		163B53761EA3DB4900732452 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		163B53781EA3DB4900732452 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		163B537B1EA3DB4900732452 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		163B537D1EA3DB4900732452 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		163B53831EA3DB6400732452 /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
+		163B53841EA3DB6400732452 /* ArrayShuffle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayShuffle.swift; sourceTree = "<group>"; };
+		163B53851EA3DB6400732452 /* CrosswordsGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrosswordsGenerator.swift; sourceTree = "<group>"; };
+		163B53B71EA4052A00732452 /* Cookie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cookie.swift; sourceTree = "<group>"; };
+		163B53B91EA4053200732452 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		163B53BB1EA4059100732452 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		163B53651EA3DB4900732452 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		163B535F1EA3DB4900732452 = {
+			isa = PBXGroup;
+			children = (
+				163B536A1EA3DB4900732452 /* CrosswordGeneratorCSP */,
+				163B53691EA3DB4900732452 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		163B53691EA3DB4900732452 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				163B53681EA3DB4900732452 /* CrosswordGeneratorCSP.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		163B536A1EA3DB4900732452 /* CrosswordGeneratorCSP */ = {
+			isa = PBXGroup;
+			children = (
+				163B53C11EA4086500732452 /* Storyb */,
+				163B53C01EA4085900732452 /* Sprite */,
+				163B53BF1EA4084900732452 /* Utils */,
+				163B53BE1EA4083600732452 /* Game */,
+				163B53BD1EA4082600732452 /* Solving */,
+				163B536B1EA3DB4900732452 /* AppDelegate.swift */,
+				163B53781EA3DB4900732452 /* Assets.xcassets */,
+				163B537D1EA3DB4900732452 /* Info.plist */,
+				163B53BB1EA4059100732452 /* Sprites.atlas */,
+			);
+			path = CrosswordGeneratorCSP;
+			sourceTree = "<group>";
+		};
+		163B53BD1EA4082600732452 /* Solving */ = {
+			isa = PBXGroup;
+			children = (
+				163B53831EA3DB6400732452 /* Array2D.swift */,
+				163B53841EA3DB6400732452 /* ArrayShuffle.swift */,
+				163B53851EA3DB6400732452 /* CrosswordsGenerator.swift */,
+			);
+			name = Solving;
+			sourceTree = "<group>";
+		};
+		163B53BE1EA4083600732452 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				163B53711EA3DB4900732452 /* GameScene.swift */,
+				163B53731EA3DB4900732452 /* GameViewController.swift */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
+		163B53BF1EA4084900732452 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				163B53B71EA4052A00732452 /* Cookie.swift */,
+				163B53B91EA4053200732452 /* Level.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		163B53C01EA4085900732452 /* Sprite */ = {
+			isa = PBXGroup;
+			children = (
+				163B536D1EA3DB4900732452 /* GameScene.sks */,
+				163B536F1EA3DB4900732452 /* Actions.sks */,
+			);
+			name = Sprite;
+			sourceTree = "<group>";
+		};
+		163B53C11EA4086500732452 /* Storyb */ = {
+			isa = PBXGroup;
+			children = (
+				163B53751EA3DB4900732452 /* Main.storyboard */,
+				163B537A1EA3DB4900732452 /* LaunchScreen.storyboard */,
+			);
+			name = Storyb;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		163B53671EA3DB4900732452 /* CrosswordGeneratorCSP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 163B53801EA3DB4900732452 /* Build configuration list for PBXNativeTarget "CrosswordGeneratorCSP" */;
+			buildPhases = (
+				163B53641EA3DB4900732452 /* Sources */,
+				163B53651EA3DB4900732452 /* Frameworks */,
+				163B53661EA3DB4900732452 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CrosswordGeneratorCSP;
+			productName = CrosswordGeneratorCSP;
+			productReference = 163B53681EA3DB4900732452 /* CrosswordGeneratorCSP.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		163B53601EA3DB4900732452 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Deel Usmani";
+				TargetAttributes = {
+					163B53671EA3DB4900732452 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 4Y7L6J7Z75;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 163B53631EA3DB4900732452 /* Build configuration list for PBXProject "CrosswordGeneratorCSP" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 163B535F1EA3DB4900732452;
+			productRefGroup = 163B53691EA3DB4900732452 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				163B53671EA3DB4900732452 /* CrosswordGeneratorCSP */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		163B53661EA3DB4900732452 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				163B53BC1EA4059100732452 /* Sprites.atlas in Resources */,
+				163B53771EA3DB4900732452 /* Main.storyboard in Resources */,
+				163B536E1EA3DB4900732452 /* GameScene.sks in Resources */,
+				163B53791EA3DB4900732452 /* Assets.xcassets in Resources */,
+				163B537C1EA3DB4900732452 /* LaunchScreen.storyboard in Resources */,
+				163B53701EA3DB4900732452 /* Actions.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		163B53641EA3DB4900732452 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				163B53721EA3DB4900732452 /* GameScene.swift in Sources */,
+				163B53871EA3DB6400732452 /* ArrayShuffle.swift in Sources */,
+				163B53861EA3DB6400732452 /* Array2D.swift in Sources */,
+				163B53741EA3DB4900732452 /* GameViewController.swift in Sources */,
+				163B53881EA3DB6400732452 /* CrosswordsGenerator.swift in Sources */,
+				163B53B81EA4052A00732452 /* Cookie.swift in Sources */,
+				163B53BA1EA4053200732452 /* Level.swift in Sources */,
+				163B536C1EA3DB4900732452 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		163B53751EA3DB4900732452 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				163B53761EA3DB4900732452 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		163B537A1EA3DB4900732452 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				163B537B1EA3DB4900732452 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		163B537E1EA3DB4900732452 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		163B537F1EA3DB4900732452 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		163B53811EA3DB4900732452 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4Y7L6J7Z75;
+				INFOPLIST_FILE = CrosswordGeneratorCSP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.deelusmani.CrosswordGeneratorCSP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		163B53821EA3DB4900732452 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4Y7L6J7Z75;
+				INFOPLIST_FILE = CrosswordGeneratorCSP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.deelusmani.CrosswordGeneratorCSP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		163B53631EA3DB4900732452 /* Build configuration list for PBXProject "CrosswordGeneratorCSP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				163B537E1EA3DB4900732452 /* Debug */,
+				163B537F1EA3DB4900732452 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		163B53801EA3DB4900732452 /* Build configuration list for PBXNativeTarget "CrosswordGeneratorCSP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				163B53811EA3DB4900732452 /* Debug */,
+				163B53821EA3DB4900732452 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 163B53601EA3DB4900732452 /* Project object */;
+}
