@@ -61,9 +61,13 @@ class GameViewController: UIViewController {
             crosswordsGenerator.columns = 30
             crosswordsGenerator.rows = 28
             
+            crosswordsGenerator.bruteForce = true
+            crosswordsGenerator.debug = false
+            //crosswordsGenerator.fillAllWords = true
+            
             var bestResult: Array = Array<Any>()
             var printable = Array<Array<String>>()
-            let attempts = 100
+            let attempts = 10
             
             for _ in 0...attempts {
                 crosswordsGenerator.generate()
@@ -90,12 +94,84 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func onBacktrackAction(_ sender: Any) {
+        let queue = DispatchQueue(label: "uz.plovlover.crossword")
         
+        queue.async {
+            let crosswordsGenerator = CrosswordsGenerator()
+            crosswordsGenerator.words = ["saffron", "pumpernickel", "leaven", "coda", "paladin", "syncopation", "albatross", "harp", "piston", "caramel", "coral", "dawn", "pitch", "fjord", "lip", "lime", "mist", "plague", "yarn", "snicker", "pidar", "zaibal", "doxuya", "govorish", "yeblan", "chmoshnik"]
+            crosswordsGenerator.columns = 30
+            crosswordsGenerator.rows = 28
+            
+            crosswordsGenerator.debug = false
+            //crosswordsGenerator.fillAllWords = true
+            
+            var bestResult: Array = Array<Any>()
+            var printable = Array<Array<String>>()
+            let attempts = 1
+            
+            for _ in 0...attempts {
+                crosswordsGenerator.generateWithBacktrack()
+                let result = crosswordsGenerator.result
+                
+                if result.count > bestResult.count {
+                    bestResult.removeAll()
+                    for word in result {
+                        bestResult.append(word)
+                    }
+                    
+                    printable = crosswordsGenerator.currentPrintable
+                }
+                
+            }
+            print("br: \(bestResult.count), words: \(crosswordsGenerator.words.count)")
+            
+            DispatchQueue.main.async {
+                self.scene.drawCrossword(print: printable)
+            }
+            
+        }
+
     }
     
     
     @IBAction func onForwardtreackAction(_ sender: Any) {
+        let queue = DispatchQueue(label: "uz.plovlover.crossword")
         
+        queue.async {
+            let crosswordsGenerator = ForwardCheck()
+            crosswordsGenerator.words = ["saffron", "pumpernickel", "leaven", "coda", "paladin", "syncopation", "albatross", "harp", "piston", "caramel", "coral", "dawn", "pitch", "fjord", "lip", "lime", "mist", "plague", "yarn", "snicker", "pidar", "zaibal", "doxuya", "govorish", "yeblan", "chmoshnik"]
+            crosswordsGenerator.columns = 30
+            crosswordsGenerator.rows = 28
+            
+            crosswordsGenerator.debug = false
+            //crosswordsGenerator.fillAllWords = true
+            
+            var bestResult: Array = Array<Any>()
+            var printable = Array<Array<String>>()
+            let attempts = 1
+            
+            for _ in 0...attempts {
+                crosswordsGenerator.generateWithForwardChecking()
+                let result = crosswordsGenerator.result
+                
+                if result.count > bestResult.count {
+                    bestResult.removeAll()
+                    for word in result {
+                        bestResult.append(word)
+                    }
+                    
+                    printable = crosswordsGenerator.currentPrintable
+                }
+                
+            }
+            print("br: \(bestResult.count), words: \(crosswordsGenerator.words.count)")
+            
+//            DispatchQueue.main.async {
+//                self.scene.drawCrossword(print: printable)
+//            }
+            
+        }
+
     }
     
     
