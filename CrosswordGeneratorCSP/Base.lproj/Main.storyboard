@@ -42,7 +42,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSV-Ds-icb">
                                 <rect key="frame" x="429.5" y="40" width="217.5" height="30"/>
                                 <color key="backgroundColor" red="0.197447174" green="0.87447376939999999" blue="0.40071712329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Create crossword">
+                                <state key="normal" title="Brute force">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

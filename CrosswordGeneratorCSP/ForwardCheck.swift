@@ -1,14 +1,25 @@
 //
-//  CrosswordsGenerator.swift
-//  CrossWordCSP
+//  ForwardCheck.swift
+//  CrosswordGeneratorCSP
 //
-//  Created by Deel Usmani on 16/04/2017.
+//  Created by Deel Usmani on 20/04/2017.
 //  Copyright © 2017 Deel Usmani. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-open class CrosswordsGenerator {
+protocol Copyable {
+    init(instance: Self)
+}
+
+extension Copyable {
+    func copy() -> Self {
+        return Self.init(instance: self)
+    }
+}
+
+open class ForwardCheck {
     
     // MARK: - Additional types
     
@@ -71,85 +82,6 @@ open class CrosswordsGenerator {
         self.rows = rows
         self.maxLoops = maxLoops
         self.words = words
-    }
-    
-    // MARK: - Crosswords generation
-    
-    open func generate() {
-        
-        self.grid = nil
-        self.grid = Array2D(columns: columns, rows: rows, defaultValue: emptySymbol)
-        
-        currentWords.removeAll()
-        resultData.removeAll()
-        
-        words.sort(by: {$0.lengthOfBytes(using: String.Encoding.utf8) > $1.lengthOfBytes(using: String.Encoding.utf8)})
-        
-        if debug {
-            print("--- Words ---")
-            print(words)
-        }
-        
-        for word in words {
-            
-            if !currentWords.contains(word) {
-                _ = fitAndAdd(word)
-            }
-        }
-        
-        if debug {
-            print("--- Result ---")
-            printGrid()
-        }
-        
-        if fillAllWords {
-            
-            var remainingWords = Array<String>()
-            for word in words {
-                if !currentWords.contains(word) {
-                    remainingWords.append(word)
-                }
-            }
-            
-            var moreLikely = Set<String>()
-            var lessLikely = Set<String>()
-            for word in remainingWords {
-                var hasSameLetters = false
-                for comparingWord in remainingWords {
-                    if word != comparingWord {
-                        let letters = CharacterSet(charactersIn: comparingWord)
-                        let range = word.rangeOfCharacter(from: letters)
-                        
-                        if let _ = range {
-                            hasSameLetters = true
-                            break
-                        }
-                    }
-                }
-                
-                if hasSameLetters {
-                    moreLikely.insert(word)
-                }
-                else {
-                    lessLikely.insert(word)
-                }
-            }
-            
-            remainingWords.removeAll()
-            remainingWords.append(contentsOf: moreLikely)
-            remainingWords.append(contentsOf: lessLikely)
-            
-            for word in remainingWords {
-                if !fitAndAdd(word) {
-                    fitInRandomPlace(word)
-                }
-            }
-            
-            if debug {
-                print("--- Fill All Words ---")
-                printGrid()
-            }
-        }
     }
     
     fileprivate func suggestCoord(_ word: String) -> Array<(Int, Int, Int, Int, Int)> {
@@ -253,37 +185,54 @@ open class CrosswordsGenerator {
         return true
     }
     
-    fileprivate func fitInRandomPlace(_ word: String) {
+    
+    fileprivate func fit(_ word: String) -> (Bool, Word?) {
         
-        let value = randomValue()
-        let directions = [value, value == 0 ? 1 : 0]
-        var bestScore = 0
-        var bestColumn = 0
-        var bestRow = 0
-        var bestDirection = 0
+        var fit = false
+        var count = 0
+        var coordlist = suggestCoord(word)
+        var w: Word?
         
-        for direction in directions {
-            for i: Int in 1 ..< rows - 1 {
-                for j: Int in 1 ..< columns - 1 {
-                    if grid![j, i] == emptySymbol {
-                        let c = j + 1
-                        let r = i + 1
-                        let score = checkFitScore(c, row: r, direction: direction, word: word)
-                        if score > bestScore {
-                            bestScore = score
-                            bestColumn = c
-                            bestRow = r
-                            bestDirection = direction
-                        }
-                    }
+        while !fit && count < maxLoops {
+            
+            if currentWords.count == 0 {
+                let direction = randomValue()
+                
+                // +1 offset for the first word, so more likely intersections for short words
+                let column = 1 + 1
+                let row = 1 + 1
+                
+                if checkFitScore(column, row: row, direction: direction, word: word) > 0 {
+                    fit = true
+                    w = Word(word: word, column: column, row: row, direction: (direction == 0 ? .horizontal : .vertical))
+                    return (true, w)
+                    //setWord(column, row: row, direction: direction, word: word, force: true)
                 }
             }
+            else {
+                if count >= 0 && count < coordlist.count {
+                    let column = coordlist[count].0
+                    let row = coordlist[count].1
+                    let direction = coordlist[count].2
+                    
+                    if coordlist[count].4 > 0 {
+                        fit = true
+                        w = Word(word: word, column: column, row: row, direction: (direction == 0 ? .horizontal : .vertical))
+                        //setWord(column, row: row, direction: direction, word: word, force: true)
+                    }
+                }
+                else {
+                    return (false, nil)
+                }
+            }
+            
+            count += 1
         }
         
-        if bestScore > 0 {
-            setWord(bestColumn, row: bestRow, direction: bestDirection, word: word, force: true)
-        }
+        return (true, w)
     }
+    
+    
     
     fileprivate func checkFitScore(_ column: Int, row: Int, direction: Int, word: String) -> Int {
         
@@ -421,6 +370,7 @@ open class CrosswordsGenerator {
         }
     }
     
+    
     private func removeLastWord() {
         
         //printOccupiedGrid()
@@ -428,7 +378,7 @@ open class CrosswordsGenerator {
         guard let last = self.resultData.last else {
             return
         }
-
+        
         var c = last.column
         var r = last.row
         var direction = last.direction
@@ -455,16 +405,17 @@ open class CrosswordsGenerator {
         }
         
         self.resultData.removeLast()
-
+        
     }
+
     
     //###################################################
     //
-    // MARK: - Backtracking method
+    // MARK: - Forward checking method
     //
     //###################################################
     
-    open func generateWithBacktrack() {
+    open func generateWithForwardChecking() {
         self.grid = nil
         self.grid = Array2D(columns: columns, rows: rows, defaultValue: emptySymbol)
         
@@ -481,47 +432,75 @@ open class CrosswordsGenerator {
             print(words)
         }
         
-        _ = backtrack(0)
-        
-//        for word in words {
-//            if !currentWords.contains(word) {
-//                _ = fitAndAdd(word)
-//            }
-//        }
-//        
-        if debug {
-            print("--- Result ---")
-            printGrid()
-        }
-
+        _ = forwardChecking(words, grid!, 0)
     }
     
-    private func backtrack(_ num: Int) -> Bool {
+    var primary = true
+    
+    private func forwardChecking(_ next: Array<String>,_ grid: Array2D<String>,_ deepness: Int) -> Bool {
         
-        print("Deep: ", num)
-        if currentWords.count == words.count {
+        if currentWords.count == 26 {
             return true
         }
         
-        for word in words {
-            
-            if (self.addWord(word)) {
-                
-                if backtrack(num+1) {
-                    return true
-                }
-            }
-            
-            
+        if next.isEmpty {
+            return false
         }
         
-        currentWords.removeLast()
-        removeLastWord()
+        if !primary {
+            _ = fitAndAdd(next.first!)
+        }
+        
+        print("###### Grid ##### and D: \(deepness)")
+        printGrid()
+        
+        var nextDomain: Array<String> = next
+        var nextGrid = self.grid!.copy()
+        
+//        print("###### Next Grid #####")
+//        printCopyGrid(copy: nextGrid)
+        for word in next {
+            
+            if (self.canAddWord(word)) {
+//                print("##### can add word ####")
+//                printGrid()
+                
+                if primary {
+                    nextDomain.removeFirst()
+                    primary = false
+                    nextGrid = self.grid!.copy()
+                    if forwardChecking(nextDomain, nextGrid, deepness + 1) {
+                        return true
+                    }
+                }
+                
+                self.currentWords.removeLast()
+                self.resultData.removeLast()
+                
+                self.grid = nextGrid.copy()
+                
+//                print("##### return grid ####")
+//                printGrid()
+            } else {
+                
+                nextDomain = nextDomain.filter{ $0 != word }
+//                print("##### next domain ####")
+//                printGrid()
+                
+            }
+        }
+        
+        if forwardChecking(nextDomain, nextGrid, deepness + 1) {
+            return true
+        }
+        
+        //currentWords.removeLast()
+        //removeLastWord()
         return false
         
     }
     
-    private func addWord(_ word: String) -> Bool {
+    private func canAddWord(_ word: String) -> (Bool) {
         
         if currentWords.contains(word) {
             return false
@@ -531,13 +510,12 @@ open class CrosswordsGenerator {
         
         if can {
             print("cWord: \(self.currentWords.count), \(word)")
-            printGrid()
+            //printGrid()
             return true
         }
         
         return false
     }
-    
     
     // MARK: - Public info methods
     
@@ -599,7 +577,7 @@ open class CrosswordsGenerator {
     // MARK: - Debug
     
     func printGrid() {
-        print("###OCCUPIED###")
+        
         for i in 0 ..< rows {
             var s = ""
             for j in 0 ..< columns {
@@ -607,10 +585,23 @@ open class CrosswordsGenerator {
             }
             print(s)
         }
-        print("###END###")
+        
+    }
+    
+    func printCopyGrid(copy: Array2D<String>) {
+        
+        for i in 0 ..< rows {
+            var s = ""
+            for j in 0 ..< columns {
+                s += copy[j, i]
+            }
+            print(s)
+        }
+        
     }
     
     func printOccupiedGrid() {
+        print("###OCCUPIED###")
         for i in 0 ..< rows {
             var s = ""
             for j in 0 ..< columns {
@@ -618,6 +609,7 @@ open class CrosswordsGenerator {
             }
             print(s)
         }
+        print("###END###")
     }
     
     func arrayPrint() -> Array<Array<String>> {

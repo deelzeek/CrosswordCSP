@@ -9,7 +9,7 @@
 import Foundation
 
 
-open class Array2D<T> {
+open class Array2D<T> : Copyable {
     
     open var columns: Int
     open var rows: Int
@@ -19,6 +19,12 @@ open class Array2D<T> {
         self.columns = columns
         self.rows = rows
         matrix = Array(repeating: defaultValue, count: columns * rows)
+    }
+    
+    required public init(instance: Array2D<T>) {
+        self.columns = instance.columns
+        self.rows = instance.rows
+        self.matrix = instance.matrix
     }
     
     open subscript(column: Int, row: Int) -> T {
