@@ -24,6 +24,7 @@
 		1645E0581EA53D1C00EA7EDF /* Backtracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645E0571EA53D1B00EA7EDF /* Backtracking.swift */; };
 		167AE19A1EA9405C00561024 /* ForwardCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167AE1991EA9405C00561024 /* ForwardCheck.swift */; };
 		167AE19C1EA9672B00561024 /* lemma.al.txt in Resources */ = {isa = PBXBuildFile; fileRef = 167AE19B1EA9672B00561024 /* lemma.al.txt */; };
+		16C5AA541EAAA1E4004C011E /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C5AA531EAAA1E4004C011E /* StreamReader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		1645E0571EA53D1B00EA7EDF /* Backtracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backtracking.swift; sourceTree = "<group>"; };
 		167AE1991EA9405C00561024 /* ForwardCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForwardCheck.swift; sourceTree = "<group>"; };
 		167AE19B1EA9672B00561024 /* lemma.al.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lemma.al.txt; sourceTree = "<group>"; };
+		16C5AA531EAAA1E4004C011E /* StreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			children = (
 				163B53B71EA4052A00732452 /* Cookie.swift */,
 				163B53B91EA4053200732452 /* Level.swift */,
+				16C5AA531EAAA1E4004C011E /* StreamReader.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				163B53871EA3DB6400732452 /* ArrayShuffle.swift in Sources */,
 				163B53861EA3DB6400732452 /* Array2D.swift in Sources */,
 				1645E0581EA53D1C00EA7EDF /* Backtracking.swift in Sources */,
+				16C5AA541EAAA1E4004C011E /* StreamReader.swift in Sources */,
 				163B53741EA3DB4900732452 /* GameViewController.swift in Sources */,
 				163B53881EA3DB6400732452 /* CrosswordsGenerator.swift in Sources */,
 				163B53B81EA4052A00732452 /* Cookie.swift in Sources */,

@@ -43,6 +43,17 @@ class GameViewController: UIViewController {
         beginGame()
     }
     
+    func importWordsFromFile() {
+        if let aStreamReader = StreamReader(path: "lemma.al.txt") {
+            defer {
+                aStreamReader.close()
+            }
+            while let line = aStreamReader.nextLine() {
+                print(line)
+            }
+        }
+    }
+    
     func beginGame() {
         shuffle()
     }
@@ -61,7 +72,7 @@ class GameViewController: UIViewController {
             crosswordsGenerator.columns = 30
             crosswordsGenerator.rows = 28
             
-            crosswordsGenerator.bruteForce = true
+            crosswordsGenerator.occupyPlaces = false
             crosswordsGenerator.debug = false
             //crosswordsGenerator.fillAllWords = true
             
@@ -102,6 +113,7 @@ class GameViewController: UIViewController {
             crosswordsGenerator.columns = 30
             crosswordsGenerator.rows = 28
             
+            crosswordsGenerator.occupyPlaces = true
             crosswordsGenerator.debug = false
             //crosswordsGenerator.fillAllWords = true
             
@@ -138,7 +150,7 @@ class GameViewController: UIViewController {
         let queue = DispatchQueue(label: "uz.plovlover.crossword")
         
         queue.async {
-            let crosswordsGenerator = ForwardCheck()
+            let crosswordsGenerator = CrosswordsGenerator()
             crosswordsGenerator.words = ["saffron", "pumpernickel", "leaven", "coda", "paladin", "syncopation", "albatross", "harp", "piston", "caramel", "coral", "dawn", "pitch", "fjord", "lip", "lime", "mist", "plague", "yarn", "snicker", "pidar", "zaibal", "doxuya", "govorish", "yeblan", "chmoshnik"]
             crosswordsGenerator.columns = 30
             crosswordsGenerator.rows = 28
@@ -166,9 +178,9 @@ class GameViewController: UIViewController {
             }
             print("br: \(bestResult.count), words: \(crosswordsGenerator.words.count)")
             
-//            DispatchQueue.main.async {
-//                self.scene.drawCrossword(print: printable)
-//            }
+            DispatchQueue.main.async {
+                self.scene.drawCrossword(print: printable)
+            }
             
         }
 
