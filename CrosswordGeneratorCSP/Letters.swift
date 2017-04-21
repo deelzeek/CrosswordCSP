@@ -1,21 +1,22 @@
 //
-//  Cookie.swift
-//  Cookie
+//  Letters.swift
+//  CrosswordGeneratorCSP
 //
-//  Created by Deel Usmani on 16/04/2017.
+//  Created by Deel Usmani on 21/04/2017.
 //  Copyright © 2017 Deel Usmani. All rights reserved.
 //
 
 import Foundation
+
 import SpriteKit
 
-enum CookieType: Int, CustomStringConvertible {
+enum LetterType: Int, CustomStringConvertible {
     
     case unknown = 0, croissant
     var spriteName: String {
         let spriteNames = [
             "blackblock"
-            ]
+        ]
         
         return spriteNames[rawValue - 1]
     }
@@ -24,8 +25,8 @@ enum CookieType: Int, CustomStringConvertible {
         return spriteName
     }
     
-    static func random() -> CookieType {
-        return CookieType(rawValue: 1)! //Int(arc4random_uniform(1)) + 1)!
+    static func random() -> LetterType {
+        return LetterType(rawValue: 1)! //Int(arc4random_uniform(1)) + 1)!
     }
     
     var description: String {
@@ -33,21 +34,21 @@ enum CookieType: Int, CustomStringConvertible {
     }
 }
 
-class Cookie : CustomStringConvertible, Hashable {
+class Letter : CustomStringConvertible, Hashable {
     
     var column: Int
     var row: Int
-    let cookieType: CookieType
+    let letterType: LetterType
     var sprite: SKSpriteNode?
     
-    init(column: Int, row: Int, cookieType: CookieType) {
+    init(column: Int, row: Int, letterType: LetterType) {
         self.column = column
         self.row = row
-        self.cookieType = cookieType
+        self.letterType = letterType
     }
     
     var description: String {
-        return "type:\(cookieType) square:(\(column),\(row))"
+        return "type:\(letterType) square:(\(column),\(row))"
     }
     
     var hashValue: Int {
@@ -55,6 +56,6 @@ class Cookie : CustomStringConvertible, Hashable {
     }
 }
 
-func ==(lhs: Cookie, rhs: Cookie) -> Bool {
+func ==(lhs: Letter, rhs: Letter) -> Bool {
     return lhs.column == rhs.column && lhs.row == rhs.row
 }

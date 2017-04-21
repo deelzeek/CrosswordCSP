@@ -13,35 +13,35 @@ let NumColumns = 30
 let NumRows = 28
 
 class Level {
-    fileprivate var cookies = ArraySprite<Cookie>(columns: NumColumns, rows: NumRows)
+    fileprivate var letters = ArraySprite<Letter>(columns: NumColumns, rows: NumRows)
     
     
-    func cookieAt(column: Int, row: Int) -> Cookie? {
+    func letterAt(column: Int, row: Int) -> Letter? {
         assert(column >= 0 && column < NumColumns)
         assert(row >= 0 && row < NumRows)
-        return cookies[column, row]
+        return letters[column, row]
     }
     
-    func shuffle() -> Set<Cookie> {
-        return createInitialCookies()
+    func shuffle() -> Set<Letter> {
+        return createInitialLetters()
     }
     
-    private func createInitialCookies() -> Set<Cookie> {
-        var set = Set<Cookie>()
+    private func createInitialLetters() -> Set<Letter> {
+        var set = Set<Letter>()
         
         // 1
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
                 
                 // 2
-                var cookieType = CookieType.random()
+                var letterType = LetterType.random()
                 
                 // 3
-                let cookie = Cookie(column: column, row: row, cookieType: cookieType)
-                cookies[column, row] = cookie
+                let letter = Letter(column: column, row: row, letterType: letterType)
+                letters[column, row] = letter
                 
                 // 4
-                set.insert(cookie)
+                set.insert(letter)
             }
         }
         return set

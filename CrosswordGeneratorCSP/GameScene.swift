@@ -17,7 +17,7 @@ class GameScene: SKScene {
     let TileHeight: CGFloat = 11.5
     
     let gameLayer = SKNode()
-    let cookiesLayer = SKNode()
+    let lettersLayer = SKNode()
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder) is not used in this app")
@@ -35,17 +35,17 @@ class GameScene: SKScene {
             x: -TileWidth * CGFloat(NumColumns) / 2,
             y: -TileHeight * CGFloat(NumRows) / 2)
         
-        cookiesLayer.position = layerPosition
-        gameLayer.addChild(cookiesLayer)
+        lettersLayer.position = layerPosition
+        gameLayer.addChild(lettersLayer)
     }
     
-    func addSprites(for cookies: Set<Cookie>) {
-        for cookie in cookies {
-            let sprite = SKSpriteNode(imageNamed: cookie.cookieType.spriteName)
+    func addSprites(for letters: Set<Letter>) {
+        for letter in letters {
+            let sprite = SKSpriteNode(imageNamed: letter.letterType.spriteName)
             sprite.size = CGSize(width: TileWidth, height: TileHeight)
-            sprite.position = pointFor(column: cookie.column, row: cookie.row)
-            cookiesLayer.addChild(sprite)
-            cookie.sprite = sprite
+            sprite.position = pointFor(column: letter.column, row: letter.row)
+            lettersLayer.addChild(sprite)
+            letter.sprite = sprite
         }
     }
     
@@ -57,7 +57,7 @@ class GameScene: SKScene {
     
     public func drawCrossword(print: Array<Array<String>>) {
         
-        self.cookiesLayer.removeAllChildren()
+        self.lettersLayer.removeAllChildren()
         
         for row in 0..<print.count {
             
@@ -69,12 +69,12 @@ class GameScene: SKScene {
                     let sprite = SKSpriteNode(imageNamed: "blackblock")
                     sprite.size = CGSize(width: TileWidth, height: TileHeight)
                     sprite.position = pointFor(column: column, row: print.count - row)
-                    self.cookiesLayer.addChild(sprite)
+                    self.lettersLayer.addChild(sprite)
                 } else {
                     let sprite = SKSpriteNode(imageNamed: item.capitalized)
                     sprite.size = CGSize(width: TileWidth, height: TileHeight)
                     sprite.position = pointFor(column: column, row: print.count - row)
-                    self.cookiesLayer.addChild(sprite)
+                    self.lettersLayer.addChild(sprite)
                 }
                 
             }
