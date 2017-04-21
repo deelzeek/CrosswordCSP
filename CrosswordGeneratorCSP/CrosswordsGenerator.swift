@@ -46,7 +46,7 @@ open class CrosswordsGenerator {
     // MARK: - Public additional properties
     
     open var fillAllWords = false
-    open var bruteForce = false
+    open var occupyPlaces = false
     open var emptySymbol = "-"
     open var debug = true
     open var orientationOptimization = false
@@ -103,53 +103,58 @@ open class CrosswordsGenerator {
         }
         
         if fillAllWords {
-            
-            var remainingWords = Array<String>()
-            for word in words {
-                if !currentWords.contains(word) {
-                    remainingWords.append(word)
-                }
-            }
-            
-            var moreLikely = Set<String>()
-            var lessLikely = Set<String>()
-            for word in remainingWords {
-                var hasSameLetters = false
-                for comparingWord in remainingWords {
-                    if word != comparingWord {
-                        let letters = CharacterSet(charactersIn: comparingWord)
-                        let range = word.rangeOfCharacter(from: letters)
-                        
-                        if let _ = range {
-                            hasSameLetters = true
-                            break
-                        }
-                    }
-                }
-                
-                if hasSameLetters {
-                    moreLikely.insert(word)
-                }
-                else {
-                    lessLikely.insert(word)
-                }
-            }
-            
-            remainingWords.removeAll()
-            remainingWords.append(contentsOf: moreLikely)
-            remainingWords.append(contentsOf: lessLikely)
-            
-            for word in remainingWords {
-                if !fitAndAdd(word) {
-                    fitInRandomPlace(word)
-                }
-            }
-            
-            if debug {
-                print("--- Fill All Words ---")
-                printGrid()
+            fillAllRemainedWords()
+        }
+    }
+    
+    func fillAllRemainedWords() {
+        
+        var remainingWords = Array<String>()
+        for word in words {
+            if !currentWords.contains(word) {
+                remainingWords.append(word)
             }
         }
+        
+        var moreLikely = Set<String>()
+        var lessLikely = Set<String>()
+        for word in remainingWords {
+            var hasSameLetters = false
+            for comparingWord in remainingWords {
+                if word != comparingWord {
+                    let letters = CharacterSet(charactersIn: comparingWord)
+                    let range = word.rangeOfCharacter(from: letters)
+                    
+                    if let _ = range {
+                        hasSameLetters = true
+                        break
+                    }
+                }
+            }
+            
+            if hasSameLetters {
+                moreLikely.insert(word)
+            }
+            else {
+                lessLikely.insert(word)
+            }
+        }
+        
+        remainingWords.removeAll()
+        remainingWords.append(contentsOf: moreLikely)
+        remainingWords.append(contentsOf: lessLikely)
+        
+        for word in remainingWords {
+            if !fitAndAdd(word) {
+                fitInRandomPlace(word)
+            }
+        }
+        
+        if debug {
+            print("--- Fill All Words ---")
+            printGrid()
+        }
+
     }
     
     fileprivate func suggestCoord(_ word: String) -> Array<(Int, Int, Int, Int, Int)> {
@@ -406,7 +411,7 @@ open class CrosswordsGenerator {
             
             for letter in word.characters {
                 setCell(c, row: r, value: String(letter))
-                if !bruteForce {
+                if occupyPlaces {
                     self.occupiedPlaces![c,r] = self.occupiedPlaces![c,r] + ALREADY_OCCUPIED
                 }
                 
@@ -483,12 +488,7 @@ open class CrosswordsGenerator {
         
         _ = backtrack(0)
         
-//        for word in words {
-//            if !currentWords.contains(word) {
-//                _ = fitAndAdd(word)
-//            }
-//        }
-//        
+
         if debug {
             print("--- Result ---")
             printGrid()
@@ -538,6 +538,122 @@ open class CrosswordsGenerator {
         return false
     }
     
+    
+    //###################################################
+    //
+    // MARK: - Forward checking method
+    //
+    //###################################################
+    
+    open func generateWithForwardChecking() {
+        self.grid = nil
+        self.grid = Array2D(columns: columns, rows: rows, defaultValue: emptySymbol)
+        
+//        self.occupiedPlaces = nil
+//        self.occupiedPlaces = Array2D(columns: columns, rows: rows, defaultValue: NOT_OCCUPIED)
+        
+        currentWords.removeAll()
+        resultData.removeAll()
+        
+        words.sort(by: {$0.lengthOfBytes(using: String.Encoding.utf8) > $1.lengthOfBytes(using: String.Encoding.utf8)})
+        
+        if debug {
+            print("--- Words ---")
+            print(words)
+        }
+        
+        _ = forwardChecking(words, grid!, 0)
+        
+        fillAllRemainedWords()
+        
+    }
+    
+    var primary = true
+    
+    private func forwardChecking(_ next: Array<String>,_ grid: Array2D<String>,_ deepness: Int) -> Bool {
+        
+        if currentWords.count == 26 {
+            return true
+        }
+        
+        if next.isEmpty {
+            return false
+        }
+        
+        if !primary {
+            _ = fitAndAdd(next.first!)
+        }
+        
+        print("###### Grid ##### and D: \(deepness)")
+        printGrid()
+        
+        var nextDomain: Array<String> = next
+        var nextGrid = self.grid!.copy()
+        
+        //        print("###### Next Grid #####")
+        //        printCopyGrid(copy: nextGrid)
+        for word in next {
+            
+            if (self.canAddWord(word)) {
+                //                print("##### can add word ####")
+                //                printGrid()
+                
+                if primary {
+                    nextDomain.removeFirst()
+                    primary = false
+                    nextGrid = self.grid!.copy()
+                    if forwardChecking(nextDomain, nextGrid, deepness + 1) {
+                        return true
+                    }
+                }
+                
+                self.currentWords.removeLast()
+                self.resultData.removeLast()
+                
+                self.grid = nextGrid.copy()
+                
+                //                print("##### return grid ####")
+                //                printGrid()
+            } else {
+                
+                nextDomain = nextDomain.filter{ $0 != word }
+                //                print("##### next domain ####")
+                //                printGrid()
+                
+            }
+        }
+        
+        while !forwardChecking(nextDomain, nextGrid, deepness + 1) {
+            if nextDomain.isEmpty {
+               return false
+            } else {
+                nextDomain.removeFirst()
+            }
+        }
+        
+        //currentWords.removeLast()
+        //removeLastWord()
+        return true
+        
+    }
+    
+    private func canAddWord(_ word: String) -> (Bool) {
+        
+        if currentWords.contains(word) {
+            return false
+        }
+        
+        let can = fitAndAdd(word)
+        
+        if can {
+            print("cWord: \(self.currentWords.count), \(word)")
+            //printGrid()
+            return true
+        }
+        
+        return false
+    }
+
     
     // MARK: - Public info methods
     
@@ -599,7 +715,7 @@ open class CrosswordsGenerator {
     // MARK: - Debug
     
     func printGrid() {
-        print("###OCCUPIED###")
+        
         for i in 0 ..< rows {
             var s = ""
             for j in 0 ..< columns {
@@ -607,10 +723,11 @@ open class CrosswordsGenerator {
             }
             print(s)
         }
-        print("###END###")
+        
     }
     
     func printOccupiedGrid() {
+        print("###OCCUPIED###")
         for i in 0 ..< rows {
             var s = ""
             for j in 0 ..< columns {
@@ -618,6 +735,7 @@ open class CrosswordsGenerator {
             }
             print(s)
         }
+        print("###END###")
     }
     
     func arrayPrint() -> Array<Array<String>> {
