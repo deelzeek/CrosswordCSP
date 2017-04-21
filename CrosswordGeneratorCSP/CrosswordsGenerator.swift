@@ -55,6 +55,8 @@ open class CrosswordsGenerator {
     open let NOT_OCCUPIED = 0
     open let ALREADY_OCCUPIED = 1
     
+    open var amountOfWordsToFit = 0
+    
     // MARK: - Logic properties
     
     fileprivate var grid: Array2D<String>?
@@ -499,7 +501,7 @@ open class CrosswordsGenerator {
     private func backtrack(_ num: Int) -> Bool {
         
         print("Deep: ", num)
-        if currentWords.count == words.count {
+        if currentWords.count == self.amountOfWordsToFit {
             return true
         }
         
@@ -549,9 +551,6 @@ open class CrosswordsGenerator {
         self.grid = nil
         self.grid = Array2D(columns: columns, rows: rows, defaultValue: emptySymbol)
         
-//        self.occupiedPlaces = nil
-//        self.occupiedPlaces = Array2D(columns: columns, rows: rows, defaultValue: NOT_OCCUPIED)
-        
         currentWords.removeAll()
         resultData.removeAll()
         
@@ -572,7 +571,7 @@ open class CrosswordsGenerator {
     
     private func forwardChecking(_ next: Array<String>,_ grid: Array2D<String>,_ deepness: Int) -> Bool {
         
-        if currentWords.count == 26 {
+        if currentWords.count == self.amountOfWordsToFit {
             return true
         }
         
@@ -589,9 +588,9 @@ open class CrosswordsGenerator {
         
         var nextDomain: Array<String> = next
         var nextGrid = self.grid!.copy()
-        
-        //        print("###### Next Grid #####")
-        //        printCopyGrid(copy: nextGrid)
+//        
+//        print("###### Next Grid #####")
+//        printCopyGrid(copy: nextGrid)
         for word in next {
             
             if (self.canAddWord(word)) {

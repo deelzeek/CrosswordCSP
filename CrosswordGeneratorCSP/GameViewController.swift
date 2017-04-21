@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import Foundation
 
 class GameViewController: UIViewController {
 
@@ -20,6 +21,7 @@ class GameViewController: UIViewController {
     
     var scene: GameScene!
     var level: Level!
+    var words : Array<String> = Array()
     
     
     override func viewDidLoad() {
@@ -43,15 +45,32 @@ class GameViewController: UIViewController {
         beginGame()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        importWordsFromFile()
+    }
+    
     func importWordsFromFile() {
-        if let aStreamReader = StreamReader(path: "lemma.al.txt") {
+        
+        let filePath = Bundle.main.path(forResource: "lemma", ofType: "txt")
+        
+        if let aStreamReader = StreamReader(path: filePath!) {
             defer {
                 aStreamReader.close()
             }
             while let line = aStreamReader.nextLine() {
-                print(line)
+                let arr = line.components(separatedBy: " ")
+                
+                if !arr.isEmpty && !arr[3].contains("-"){
+                    if arr[3] == "v" || arr[3] == "adv" || arr[3] == "n" || arr[3] == "a" {
+                        words.append(arr[2])
+                    }
+                }
             }
         }
+        
+        self.words.shuffle()
+        
+        //print("Words: \(self.words)")
     }
     
     func beginGame() {
@@ -59,8 +78,8 @@ class GameViewController: UIViewController {
     }
     
     func shuffle() {
-        let newCookies = level.shuffle()
-        scene.addSprites(for: newCookies)
+        let newLetters = level.shuffle()
+        scene.addSprites(for: newLetters)
     }
 
     @IBAction func onCreateCross(_ sender: Any) {
@@ -68,7 +87,7 @@ class GameViewController: UIViewController {
         
         queue.async {
             let crosswordsGenerator = CrosswordsGenerator()
-            crosswordsGenerator.words = ["saffron", "pumpernickel", "leaven", "coda", "paladin", "syncopation", "albatross", "harp", "piston", "caramel", "coral", "dawn", "pitch", "fjord", "lip", "lime", "mist", "plague", "yarn", "snicker", "pidar", "zaibal", "doxuya", "govorish", "yeblan", "chmoshnik"]
+            crosswordsGenerator.words = self.words
             crosswordsGenerator.columns = 30
             crosswordsGenerator.rows = 28
             
@@ -76,9 +95,11 @@ class GameViewController: UIViewController {
             crosswordsGenerator.debug = false
             //crosswordsGenerator.fillAllWords = true
             
+            crosswordsGenerator.occupyPlaces = false
+            
             var bestResult: Array = Array<Any>()
             var printable = Array<Array<String>>()
-            let attempts = 10
+            let attempts = 1
             
             for _ in 0...attempts {
                 crosswordsGenerator.generate()
@@ -109,10 +130,10 @@ class GameViewController: UIViewController {
         
         queue.async {
             let crosswordsGenerator = CrosswordsGenerator()
-            crosswordsGenerator.words = ["saffron", "pumpernickel", "leaven", "coda", "paladin", "syncopation", "albatross", "harp", "piston", "caramel", "coral", "dawn", "pitch", "fjord", "lip", "lime", "mist", "plague", "yarn", "snicker", "pidar", "zaibal", "doxuya", "govorish", "yeblan", "chmoshnik"]
+            crosswordsGenerator.words = self.words
             crosswordsGenerator.columns = 30
             crosswordsGenerator.rows = 28
-            
+            crosswordsGenerator.amountOfWordsToFit = 25
             crosswordsGenerator.occupyPlaces = true
             crosswordsGenerator.debug = false
             //crosswordsGenerator.fillAllWords = true
@@ -151,11 +172,12 @@ class GameViewController: UIViewController {
         
         queue.async {
             let crosswordsGenerator = CrosswordsGenerator()
-            crosswordsGenerator.words = ["saffron", "pumpernickel", "leaven", "coda", "paladin", "syncopation", "albatross", "harp", "piston", "caramel", "coral", "dawn", "pitch", "fjord", "lip", "lime", "mist", "plague", "yarn", "snicker", "pidar", "zaibal", "doxuya", "govorish", "yeblan", "chmoshnik"]
+            crosswordsGenerator.words = self.words
             crosswordsGenerator.columns = 30
             crosswordsGenerator.rows = 28
-            
+            crosswordsGenerator.amountOfWordsToFit = 25
             crosswordsGenerator.debug = false
+            crosswordsGenerator.occupyPlaces = false
             //crosswordsGenerator.fillAllWords = true
             
             var bestResult: Array = Array<Any>()
@@ -185,8 +207,6 @@ class GameViewController: UIViewController {
         }
 
     }
-    
-    
     
     override var shouldAutorotate: Bool {
         return true
