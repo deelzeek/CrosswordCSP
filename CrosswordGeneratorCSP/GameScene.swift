@@ -20,7 +20,7 @@ class GameScene: SKScene {
     let lettersLayer = SKNode()
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder) is not used in this app")
+        fatalError(INIT_NOT_USED)
     }
     
     override init(size: CGSize) {
@@ -66,7 +66,7 @@ class GameScene: SKScene {
                 let item = print[row][column]
                          
                 if item == "-" {
-                    let sprite = SKSpriteNode(imageNamed: "blackblock")
+                    let sprite = SKSpriteNode(imageNamed: EMPTY_BLOCK)
                     sprite.size = CGSize(width: TileWidth, height: TileHeight)
                     sprite.position = pointFor(column: column, row: print.count - row)
                     self.lettersLayer.addChild(sprite)

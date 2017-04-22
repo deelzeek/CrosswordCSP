@@ -43,11 +43,18 @@ open class CrosswordsGenerator {
         }
     }
     
+    open var chosenWords: Array<String> {
+        get {
+            return self.currentWords
+        }
+    }
+    
+    
     // MARK: - Public additional properties
     
     open var fillAllWords = false
     open var occupyPlaces = false
-    open var emptySymbol = "-"
+    open var emptySymbol = SYMBOL_EMPTY_GRID
     open var debug = true
     open var orientationOptimization = false
     open var occupiedPlaces: Array2D<Int>?
@@ -88,7 +95,7 @@ open class CrosswordsGenerator {
         words.sort(by: {$0.lengthOfBytes(using: String.Encoding.utf8) > $1.lengthOfBytes(using: String.Encoding.utf8)})
         
         if debug {
-            print("--- Words ---")
+            print(HEADER_WORDS)
             print(words)
         }
         
@@ -96,11 +103,13 @@ open class CrosswordsGenerator {
             
             if !currentWords.contains(word) {
                 _ = fitAndAdd(word)
+                print(HEADER_LOOP)
+                self.printGrid()
             }
         }
         
         if debug {
-            print("--- Result ---")
+            print(HEADER_RESULT)
             printGrid()
         }
         
@@ -153,7 +162,7 @@ open class CrosswordsGenerator {
         }
         
         if debug {
-            print("--- Fill All Words ---")
+            print(HEADER_FILL_ALL_WORDS)
             printGrid()
         }
 
@@ -440,7 +449,7 @@ open class CrosswordsGenerator {
         var r = last.row
         var direction = last.direction
         
-        print("REMOVE WORD")
+        //print("REMOVE WORD")
         
         for _ in last.word.characters {
             
@@ -484,7 +493,7 @@ open class CrosswordsGenerator {
         words.sort(by: {$0.lengthOfBytes(using: String.Encoding.utf8) > $1.lengthOfBytes(using: String.Encoding.utf8)})
         
         if debug {
-            print("--- Words ---")
+            print(HEADER_WORDS)
             print(words)
         }
         
@@ -492,15 +501,14 @@ open class CrosswordsGenerator {
         
 
         if debug {
-            print("--- Result ---")
+            print(HEADER_RESULT)
             printGrid()
         }
 
     }
     
     private func backtrack(_ num: Int) -> Bool {
-        
-        print("Deep: ", num)
+
         if currentWords.count == self.amountOfWordsToFit {
             return true
         }
@@ -557,7 +565,7 @@ open class CrosswordsGenerator {
         words.sort(by: {$0.lengthOfBytes(using: String.Encoding.utf8) > $1.lengthOfBytes(using: String.Encoding.utf8)})
         
         if debug {
-            print("--- Words ---")
+            print(HEADER_WORDS)
             print(words)
         }
         
@@ -583,20 +591,18 @@ open class CrosswordsGenerator {
             _ = fitAndAdd(next.first!)
         }
         
-        print("###### Grid ##### and D: \(deepness)")
-        printGrid()
+        if debug {
+            print("\(HEADER_GRID) and D: \(deepness)")
+            printGrid()
+        }
+        
         
         var nextDomain: Array<String> = next
         var nextGrid = self.grid!.copy()
-//        
-//        print("###### Next Grid #####")
-//        printCopyGrid(copy: nextGrid)
+
         for word in next {
             
             if (self.canAddWord(word)) {
-                //                print("##### can add word ####")
-                //                printGrid()
-                
                 if primary {
                     nextDomain.removeFirst()
                     primary = false
@@ -608,17 +614,9 @@ open class CrosswordsGenerator {
                 
                 self.currentWords.removeLast()
                 self.resultData.removeLast()
-                
                 self.grid = nextGrid.copy()
-                
-                //                print("##### return grid ####")
-                //                printGrid()
             } else {
-                
                 nextDomain = nextDomain.filter{ $0 != word }
-                //                print("##### next domain ####")
-                //                printGrid()
-                
             }
         }
         
@@ -629,9 +627,6 @@ open class CrosswordsGenerator {
                 nextDomain.removeFirst()
             }
         }
-        
-        //currentWords.removeLast()
-        //removeLastWord()
         return true
         
     }
@@ -646,7 +641,6 @@ open class CrosswordsGenerator {
         
         if can {
             print("cWord: \(self.currentWords.count), \(word)")
-            //printGrid()
             return true
         }
         
@@ -726,7 +720,6 @@ open class CrosswordsGenerator {
     }
     
     func printOccupiedGrid() {
-        print("###OCCUPIED###")
         for i in 0 ..< rows {
             var s = ""
             for j in 0 ..< columns {
@@ -734,7 +727,6 @@ open class CrosswordsGenerator {
             }
             print(s)
         }
-        print("###END###")
     }
     
     func arrayPrint() -> Array<Array<String>> {

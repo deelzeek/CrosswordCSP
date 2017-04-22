@@ -31,11 +31,10 @@
                                     <constraint firstAttribute="width" secondItem="2Pu-D5-sQ0" secondAttribute="height" multiplier="1:1" id="fV1-6M-bcq"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zfs-aC-y5G">
-                                <rect key="frame" x="429.5" y="204" width="217.5" height="150"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" text="Chosen words will be printed here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zfs-aC-y5G">
+                                <rect key="frame" x="430" y="154" width="216.5" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.19627970457077026" green="0.8737826943397522" blue="0.40200385451316833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -78,10 +77,10 @@
                             <constraint firstItem="zfs-aC-y5G" firstAttribute="trailing" secondItem="3se-qz-xqx" secondAttribute="trailingMargin" id="7kx-ux-zyd"/>
                             <constraint firstItem="XVX-D9-FJj" firstAttribute="centerX" secondItem="vSV-Ds-icb" secondAttribute="centerX" id="8cT-5c-xes"/>
                             <constraint firstAttribute="trailingMargin" secondItem="X6M-Zn-NmI" secondAttribute="trailing" id="CAU-oR-emL"/>
+                            <constraint firstItem="zfs-aC-y5G" firstAttribute="top" secondItem="X6M-Zn-NmI" secondAttribute="bottom" constant="8" id="Cda-Kr-Zq3"/>
                             <constraint firstItem="2Pu-D5-sQ0" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" constant="8" id="J73-Nf-cN4"/>
                             <constraint firstItem="vSV-Ds-icb" firstAttribute="leading" secondItem="2Pu-D5-sQ0" secondAttribute="trailing" constant="45" id="KMG-Ph-p9v"/>
                             <constraint firstItem="2Pu-D5-sQ0" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="Lfm-97-xKs"/>
-                            <constraint firstItem="vSV-Ds-icb" firstAttribute="centerX" secondItem="zfs-aC-y5G" secondAttribute="centerX" id="Olc-eH-ReG"/>
                             <constraint firstItem="XVX-D9-FJj" firstAttribute="trailing" secondItem="3se-qz-xqx" secondAttribute="trailingMargin" id="YOj-Bf-kkI"/>
                             <constraint firstItem="zfs-aC-y5G" firstAttribute="leading" secondItem="2Pu-D5-sQ0" secondAttribute="trailing" constant="45.5" id="e36-WE-oDn"/>
                             <constraint firstItem="XVX-D9-FJj" firstAttribute="top" secondItem="vSV-Ds-icb" secondAttribute="bottom" constant="8" symbolic="YES" id="gKE-Uv-zxt"/>
@@ -89,7 +88,6 @@
                             <constraint firstItem="X6M-Zn-NmI" firstAttribute="centerX" secondItem="XVX-D9-FJj" secondAttribute="centerX" id="l7J-sW-5vL"/>
                             <constraint firstItem="vSV-Ds-icb" firstAttribute="trailing" secondItem="3se-qz-xqx" secondAttribute="trailingMargin" id="mMr-iK-SHX"/>
                             <constraint firstItem="X6M-Zn-NmI" firstAttribute="leading" secondItem="2Pu-D5-sQ0" secondAttribute="trailing" constant="45" id="qBl-cQ-PKn"/>
-                            <constraint firstItem="zfs-aC-y5G" firstAttribute="height" secondItem="3se-qz-xqx" secondAttribute="height" multiplier="0.4" id="s5I-er-yaN"/>
                             <constraint firstItem="2Pu-D5-sQ0" firstAttribute="height" secondItem="3se-qz-xqx" secondAttribute="height" multiplier="0.95" id="ugj-Mc-jLD"/>
                         </constraints>
                     </view>

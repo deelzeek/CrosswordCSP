@@ -51,7 +51,7 @@ class GameViewController: UIViewController {
     
     func importWordsFromFile() {
         
-        let filePath = Bundle.main.path(forResource: "lemma", ofType: "txt")
+        let filePath = Bundle.main.path(forResource: LEMMA, ofType: LEMMA_FORMAT)
         
         if let aStreamReader = StreamReader(path: filePath!) {
             defer {
@@ -61,7 +61,7 @@ class GameViewController: UIViewController {
                 let arr = line.components(separatedBy: " ")
                 
                 if !arr.isEmpty && !arr[3].contains("-"){
-                    if arr[3] == "v" || arr[3] == "adv" || arr[3] == "n" || arr[3] == "a" {
+                    if arr[3] == VERB || arr[3] == ADVERB || arr[3] == NOUN || arr[3] == ADJECTIVE {
                         words.append(arr[2])
                     }
                 }
@@ -83,7 +83,7 @@ class GameViewController: UIViewController {
     }
 
     @IBAction func onCreateCross(_ sender: Any) {
-        let queue = DispatchQueue(label: "uz.plovlover.crossword")
+        let queue = DispatchQueue(label: QUEUE_NAME)
         
         queue.async {
             let crosswordsGenerator = CrosswordsGenerator()
@@ -99,26 +99,30 @@ class GameViewController: UIViewController {
             
             var bestResult: Array = Array<Any>()
             var printable = Array<Array<String>>()
-            let attempts = 1
+
+            crosswordsGenerator.generate()
+            let result = crosswordsGenerator.result
             
-            for _ in 0...attempts {
-                crosswordsGenerator.generate()
-                let result = crosswordsGenerator.result
-                
-                if result.count > bestResult.count {
-                    bestResult.removeAll()
-                    for word in result {
-                        bestResult.append(word)
-                    }
-                    
-                    printable = crosswordsGenerator.currentPrintable
+            if result.count > bestResult.count {
+                bestResult.removeAll()
+                for word in result {
+                    bestResult.append(word)
                 }
                 
+                printable = crosswordsGenerator.currentPrintable
             }
-            print("br: \(bestResult.count), words: \(crosswordsGenerator.words.count)")
+            
+            //print("br: \(bestResult.count), words: \(crosswordsGenerator.words.count)")
 
             DispatchQueue.main.async {
-              self.scene.drawCrossword(print: printable)  
+                self.scene.drawCrossword(print: printable)
+                var printWords = CHOSEN_WORDS
+                self.wordsView.text = ""
+                for word in crosswordsGenerator.chosenWords {
+                    printWords += "\(word)\n"
+                }
+                
+                self.wordsView.text  = printWords
             }
 
         }
@@ -126,40 +130,44 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func onBacktrackAction(_ sender: Any) {
-        let queue = DispatchQueue(label: "uz.plovlover.crossword")
+        let queue = DispatchQueue(label: QUEUE_NAME)
         
         queue.async {
             let crosswordsGenerator = CrosswordsGenerator()
             crosswordsGenerator.words = self.words
             crosswordsGenerator.columns = 30
             crosswordsGenerator.rows = 28
-            crosswordsGenerator.amountOfWordsToFit = 25
+            crosswordsGenerator.amountOfWordsToFit = 20
             crosswordsGenerator.occupyPlaces = true
             crosswordsGenerator.debug = false
             //crosswordsGenerator.fillAllWords = true
             
             var bestResult: Array = Array<Any>()
             var printable = Array<Array<String>>()
-            let attempts = 1
             
-            for _ in 0...attempts {
-                crosswordsGenerator.generateWithBacktrack()
-                let result = crosswordsGenerator.result
-                
-                if result.count > bestResult.count {
-                    bestResult.removeAll()
-                    for word in result {
-                        bestResult.append(word)
-                    }
-                    
-                    printable = crosswordsGenerator.currentPrintable
+            crosswordsGenerator.generateWithBacktrack()
+            let result = crosswordsGenerator.result
+            
+            if result.count > bestResult.count {
+                bestResult.removeAll()
+                for word in result {
+                    bestResult.append(word)
                 }
                 
+                printable = crosswordsGenerator.currentPrintable
             }
-            print("br: \(bestResult.count), words: \(crosswordsGenerator.words.count)")
+            
+            //print("br: \(bestResult.count), words: \(crosswordsGenerator.words.count)")
             
             DispatchQueue.main.async {
                 self.scene.drawCrossword(print: printable)
+                var printWords = CHOSEN_WORDS
+                self.wordsView.text = ""
+                for word in crosswordsGenerator.chosenWords {
+                    printWords += "\(word)\n"
+                }
+                
+                self.wordsView.text  = printWords
             }
             
         }
@@ -168,40 +176,41 @@ class GameViewController: UIViewController {
     
     
     @IBAction func onForwardtreackAction(_ sender: Any) {
-        let queue = DispatchQueue(label: "uz.plovlover.crossword")
+        let queue = DispatchQueue(label: QUEUE_NAME)
         
         queue.async {
             let crosswordsGenerator = CrosswordsGenerator()
             crosswordsGenerator.words = self.words
             crosswordsGenerator.columns = 30
             crosswordsGenerator.rows = 28
-            crosswordsGenerator.amountOfWordsToFit = 25
+            crosswordsGenerator.amountOfWordsToFit = 20
             crosswordsGenerator.debug = false
             crosswordsGenerator.occupyPlaces = false
             //crosswordsGenerator.fillAllWords = true
             
             var bestResult: Array = Array<Any>()
             var printable = Array<Array<String>>()
-            let attempts = 1
             
-            for _ in 0...attempts {
-                crosswordsGenerator.generateWithForwardChecking()
-                let result = crosswordsGenerator.result
-                
-                if result.count > bestResult.count {
-                    bestResult.removeAll()
-                    for word in result {
-                        bestResult.append(word)
-                    }
-                    
-                    printable = crosswordsGenerator.currentPrintable
-                }
-                
+            crosswordsGenerator.generateWithForwardChecking()
+            let result = crosswordsGenerator.result
+            
+            for word in result {
+                bestResult.append(word)
             }
+            
+            printable = crosswordsGenerator.currentPrintable
+            
             print("br: \(bestResult.count), words: \(crosswordsGenerator.words.count)")
             
             DispatchQueue.main.async {
                 self.scene.drawCrossword(print: printable)
+                self.wordsView.text = ""
+                var printWords = CHOSEN_WORDS
+                for word in crosswordsGenerator.chosenWords {
+                    printWords += "\(word)\n"
+                }
+                
+                self.wordsView.text  = printWords
             }
             
         }

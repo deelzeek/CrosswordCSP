@@ -38,7 +38,7 @@ class StreamReader  {
     
     /// Return next line, or nil on EOF.
     func nextLine() -> String? {
-        precondition(fileHandle != nil, "Attempt to read from closed file")
+        precondition(fileHandle != nil, ATTEMPT_TO_READ)
         
         // Read data chunks from file until a line delimiter is found:
         while !atEof {

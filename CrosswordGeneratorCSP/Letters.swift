@@ -15,7 +15,7 @@ enum LetterType: Int, CustomStringConvertible {
     case unknown = 0, croissant
     var spriteName: String {
         let spriteNames = [
-            "blackblock"
+            EMPTY_BLOCK
         ]
         
         return spriteNames[rawValue - 1]

@@ -20,9 +20,9 @@
 		163B53881EA3DB6400732452 /* CrosswordsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53851EA3DB6400732452 /* CrosswordsGenerator.swift */; };
 		163B53BA1EA4053200732452 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53B91EA4053200732452 /* Level.swift */; };
 		163B53BC1EA4059100732452 /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 163B53BB1EA4059100732452 /* Sprites.atlas */; };
-		1645E0581EA53D1C00EA7EDF /* Backtracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645E0571EA53D1B00EA7EDF /* Backtracking.swift */; };
 		16A2E69F1EAAB80800C00D09 /* Letters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A2E69E1EAAB80800C00D09 /* Letters.swift */; };
 		16A2E6A11EAABACF00C00D09 /* lemma.txt in Resources */ = {isa = PBXBuildFile; fileRef = 16A2E6A01EAABACF00C00D09 /* lemma.txt */; };
+		16A2E6A31EAAD82B00C00D09 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A2E6A21EAAD82B00C00D09 /* Constants.swift */; };
 		16C5AA541EAAA1E4004C011E /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C5AA531EAAA1E4004C011E /* StreamReader.swift */; };
 		16C5AA561EAAB3B8004C011E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C5AA551EAAB3B8004C011E /* Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -43,9 +43,9 @@
 		163B53851EA3DB6400732452 /* CrosswordsGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrosswordsGenerator.swift; sourceTree = "<group>"; };
 		163B53B91EA4053200732452 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		163B53BB1EA4059100732452 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
-		1645E0571EA53D1B00EA7EDF /* Backtracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backtracking.swift; sourceTree = "<group>"; };
 		16A2E69E1EAAB80800C00D09 /* Letters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Letters.swift; sourceTree = "<group>"; };
 		16A2E6A01EAABACF00C00D09 /* lemma.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lemma.txt; sourceTree = "<group>"; };
+		16A2E6A21EAAD82B00C00D09 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		16C5AA531EAAA1E4004C011E /* StreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 		16C5AA551EAAB3B8004C011E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,7 +80,6 @@
 		163B536A1EA3DB4900732452 /* CrosswordGeneratorCSP */ = {
 			isa = PBXGroup;
 			children = (
-				1645E0561EA53CEE00EA7EDF /* Backtracking */,
 				163B53C11EA4086500732452 /* Storyb */,
 				163B53C01EA4085900732452 /* Sprite */,
 				163B53BF1EA4084900732452 /* Utils */,
@@ -121,6 +120,7 @@
 				163B53B91EA4053200732452 /* Level.swift */,
 				16C5AA551EAAB3B8004C011E /* Extensions.swift */,
 				16C5AA531EAAA1E4004C011E /* StreamReader.swift */,
+				16A2E6A21EAAD82B00C00D09 /* Constants.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -141,14 +141,6 @@
 				163B537A1EA3DB4900732452 /* LaunchScreen.storyboard */,
 			);
 			name = Storyb;
-			sourceTree = "<group>";
-		};
-		1645E0561EA53CEE00EA7EDF /* Backtracking */ = {
-			isa = PBXGroup;
-			children = (
-				1645E0571EA53D1B00EA7EDF /* Backtracking.swift */,
-			);
-			name = Backtracking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,13 +224,13 @@
 				163B53871EA3DB6400732452 /* ArrayShuffle.swift in Sources */,
 				163B53861EA3DB6400732452 /* Array2D.swift in Sources */,
 				16A2E69F1EAAB80800C00D09 /* Letters.swift in Sources */,
-				1645E0581EA53D1C00EA7EDF /* Backtracking.swift in Sources */,
 				16C5AA541EAAA1E4004C011E /* StreamReader.swift in Sources */,
 				163B53741EA3DB4900732452 /* GameViewController.swift in Sources */,
 				163B53881EA3DB6400732452 /* CrosswordsGenerator.swift in Sources */,
 				163B53BA1EA4053200732452 /* Level.swift in Sources */,
 				16C5AA561EAAB3B8004C011E /* Extensions.swift in Sources */,
 				163B536C1EA3DB4900732452 /* AppDelegate.swift in Sources */,
+				16A2E6A31EAAD82B00C00D09 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
