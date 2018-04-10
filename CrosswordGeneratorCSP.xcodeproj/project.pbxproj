@@ -18,7 +18,6 @@
 		163B537C1EA3DB4900732452 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 163B537A1EA3DB4900732452 /* LaunchScreen.storyboard */; };
 		163B53861EA3DB6400732452 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53831EA3DB6400732452 /* Array2D.swift */; };
 		163B53871EA3DB6400732452 /* ArrayShuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53841EA3DB6400732452 /* ArrayShuffle.swift */; };
-		163B53881EA3DB6400732452 /* CrosswordsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53851EA3DB6400732452 /* CrosswordsGenerator.swift */; };
 		163B53BA1EA4053200732452 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B53B91EA4053200732452 /* Level.swift */; };
 		163B53BC1EA4059100732452 /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 163B53BB1EA4059100732452 /* Sprites.atlas */; };
 		16A2E69F1EAAB80800C00D09 /* Letters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A2E69E1EAAB80800C00D09 /* Letters.swift */; };
@@ -42,7 +41,6 @@
 		163B537D1EA3DB4900732452 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		163B53831EA3DB6400732452 /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
 		163B53841EA3DB6400732452 /* ArrayShuffle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayShuffle.swift; sourceTree = "<group>"; };
-		163B53851EA3DB6400732452 /* CrosswordsGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrosswordsGenerator.swift; sourceTree = "<group>"; };
 		163B53B91EA4053200732452 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		163B53BB1EA4059100732452 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
 		16A2E69E1EAAB80800C00D09 /* Letters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Letters.swift; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 			children = (
 				163B53831EA3DB6400732452 /* Array2D.swift */,
 				163B53841EA3DB6400732452 /* ArrayShuffle.swift */,
-				163B53851EA3DB6400732452 /* CrosswordsGenerator.swift */,
 				048DFB23207AE2840070C365 /* MozaicGenerator.swift */,
 			);
 			name = Solving;
@@ -230,7 +227,6 @@
 				16C5AA541EAAA1E4004C011E /* StreamReader.swift in Sources */,
 				163B53741EA3DB4900732452 /* GameViewController.swift in Sources */,
 				048DFB24207AE2840070C365 /* MozaicGenerator.swift in Sources */,
-				163B53881EA3DB6400732452 /* CrosswordsGenerator.swift in Sources */,
 				163B53BA1EA4053200732452 /* Level.swift in Sources */,
 				16C5AA561EAAB3B8004C011E /* Extensions.swift in Sources */,
 				163B536C1EA3DB4900732452 /* AppDelegate.swift in Sources */,

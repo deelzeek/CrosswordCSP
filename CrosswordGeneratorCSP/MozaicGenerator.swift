@@ -323,14 +323,17 @@ open class MozaicGenerator {
             return true
         }
         
-        for word in words {
-            if (self.canFitHere(col: col, row: row, letter: word)) {
+        for letter in words {
+            if (self.canFitHere(col: col, row: row, letter: letter)) {
                 // Set letter
-                self.setCell(col, row: row, value: word)
-                self.currentWords.append(word)
+                self.setCell(col, row: row, value: letter)
+                self.currentWords.append(letter)
                 
-                printGrid()
-                debugPrint("depth: \(depth), col: \(col), row: \(row)")
+                // Print
+                if debug {
+                    printGrid()
+                    debugPrint("depth: \(depth), col: \(col), row: \(row)")
+                }
                 
                 // Carry on searching
                 if (row == (rows - 1)) && (col < (columns - 1)) {

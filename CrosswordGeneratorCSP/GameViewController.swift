@@ -53,25 +53,8 @@ class GameViewController: UIViewController {
         for char in "AB".characters {
             words.append("\(char)")
         }
-//        let filePath = Bundle.main.path(forResource: LEMMA, ofType: LEMMA_FORMAT)
-//        if let aStreamReader = StreamReader(path: filePath!) {
-//            defer {
-//                aStreamReader.close()
-//            }
-//            while let line = aStreamReader.nextLine() {
-//                let arr = line.components(separatedBy: " ")
-//
-//                if !arr.isEmpty && !arr[3].contains("-"){
-//                    if arr[3] == VERB || arr[3] == ADVERB || arr[3] == NOUN || arr[3] == ADJECTIVE {
-//                        words.append(arr[2])
-//                    }
-//                }
-//            }
-//        }
-        
+
         self.words.shuffle()
-        
-        //print("Words: \(self.words)")
     }
     
     func beginGame() {
@@ -146,7 +129,7 @@ class GameViewController: UIViewController {
             crosswordsGenerator.rows = ROWS
             //crosswordsGenerator.amountOfWordsToFit = NUMBER_OF_WORDS
             crosswordsGenerator.occupyPlaces = false
-            crosswordsGenerator.debug = false
+            crosswordsGenerator.debug = true
             //crosswordsGenerator.fillAllWords = true
             
             var bestResult: Array = Array<Any>()
@@ -163,8 +146,6 @@ class GameViewController: UIViewController {
                 
                 printable = crosswordsGenerator.currentPrintable
             }
-            
-            //print("br: \(bestResult.count), words: \(crosswordsGenerator.words.count)")
             
             DispatchQueue.main.async {
                 self.scene.drawCrossword(print: printable)
@@ -190,7 +171,7 @@ class GameViewController: UIViewController {
         let queue = DispatchQueue(label: QUEUE_NAME)
         
         queue.async {
-            let crosswordsGenerator = CrosswordsGenerator()
+            let crosswordsGenerator = MozaicGenerator()
             crosswordsGenerator.words = self.words
             crosswordsGenerator.columns = COLUMNS
             crosswordsGenerator.rows = ROWS
