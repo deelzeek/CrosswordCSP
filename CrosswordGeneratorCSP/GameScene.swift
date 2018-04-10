@@ -32,8 +32,8 @@ class GameScene: SKScene {
         addChild(gameLayer)
         
         let layerPosition = CGPoint(
-            x: -TileWidth * CGFloat(NumColumns) / 2,
-            y: -TileHeight * CGFloat(NumRows) / 2)
+            x: -TileWidth * CGFloat(COLUMNS) / 2,
+            y: -TileHeight * CGFloat(ROWS) / 2)
         
         lettersLayer.position = layerPosition
         gameLayer.addChild(lettersLayer)

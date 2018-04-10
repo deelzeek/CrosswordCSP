@@ -50,23 +50,24 @@ class GameViewController: UIViewController {
     }
     
     func importWordsFromFile() {
-        
-        let filePath = Bundle.main.path(forResource: LEMMA, ofType: LEMMA_FORMAT)
-        
-        if let aStreamReader = StreamReader(path: filePath!) {
-            defer {
-                aStreamReader.close()
-            }
-            while let line = aStreamReader.nextLine() {
-                let arr = line.components(separatedBy: " ")
-                
-                if !arr.isEmpty && !arr[3].contains("-"){
-                    if arr[3] == VERB || arr[3] == ADVERB || arr[3] == NOUN || arr[3] == ADJECTIVE {
-                        words.append(arr[2])
-                    }
-                }
-            }
+        for char in "AB".characters {
+            words.append("\(char)")
         }
+//        let filePath = Bundle.main.path(forResource: LEMMA, ofType: LEMMA_FORMAT)
+//        if let aStreamReader = StreamReader(path: filePath!) {
+//            defer {
+//                aStreamReader.close()
+//            }
+//            while let line = aStreamReader.nextLine() {
+//                let arr = line.components(separatedBy: " ")
+//
+//                if !arr.isEmpty && !arr[3].contains("-"){
+//                    if arr[3] == VERB || arr[3] == ADVERB || arr[3] == NOUN || arr[3] == ADJECTIVE {
+//                        words.append(arr[2])
+//                    }
+//                }
+//            }
+//        }
         
         self.words.shuffle()
         
@@ -85,13 +86,16 @@ class GameViewController: UIViewController {
     @IBAction func onCreateCross(_ sender: Any) {
         let queue = DispatchQueue(label: QUEUE_NAME)
         
+        self.btBacktrack.isEnabled = false
+        self.btForwardtrack.isEnabled = false
+        
         queue.async {
-            let crosswordsGenerator = CrosswordsGenerator()
+            let crosswordsGenerator = MozaicGenerator()
             crosswordsGenerator.words = self.words
-            crosswordsGenerator.columns = 30
-            crosswordsGenerator.rows = 28
+            crosswordsGenerator.columns = COLUMNS
+            crosswordsGenerator.rows = ROWS
             
-            crosswordsGenerator.occupyPlaces = false
+            //crosswordsGenerator.occupyPlaces = true
             crosswordsGenerator.debug = false
             //crosswordsGenerator.fillAllWords = true
             
@@ -100,7 +104,7 @@ class GameViewController: UIViewController {
             var bestResult: Array = Array<Any>()
             var printable = Array<Array<String>>()
 
-            crosswordsGenerator.generate()
+            crosswordsGenerator.generateMozaic()
             let result = crosswordsGenerator.result
             
             if result.count > bestResult.count {
@@ -121,7 +125,8 @@ class GameViewController: UIViewController {
                 for word in crosswordsGenerator.chosenWords {
                     printWords += "\(word)\n"
                 }
-                
+                self.btBacktrack.isEnabled = true
+                self.btForwardtrack.isEnabled = true
                 self.wordsView.text  = printWords
             }
 
@@ -130,15 +135,17 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func onBacktrackAction(_ sender: Any) {
-        let queue = DispatchQueue(label: QUEUE_NAME)
         
+        self.btForwardtrack.isEnabled = false
+        self.createCross.isEnabled = false
+        let queue = DispatchQueue(label: QUEUE_NAME)
         queue.async {
-            let crosswordsGenerator = CrosswordsGenerator()
+            let crosswordsGenerator = MozaicGenerator()
             crosswordsGenerator.words = self.words
-            crosswordsGenerator.columns = 30
-            crosswordsGenerator.rows = 28
-            crosswordsGenerator.amountOfWordsToFit = 20
-            crosswordsGenerator.occupyPlaces = true
+            crosswordsGenerator.columns = COLUMNS
+            crosswordsGenerator.rows = ROWS
+            //crosswordsGenerator.amountOfWordsToFit = NUMBER_OF_WORDS
+            crosswordsGenerator.occupyPlaces = false
             crosswordsGenerator.debug = false
             //crosswordsGenerator.fillAllWords = true
             
@@ -166,24 +173,28 @@ class GameViewController: UIViewController {
                 for word in crosswordsGenerator.chosenWords {
                     printWords += "\(word)\n"
                 }
+                self.btForwardtrack.isEnabled = true
+                self.createCross.isEnabled = true
                 
                 self.wordsView.text  = printWords
             }
-            
         }
-
     }
     
     
     @IBAction func onForwardtreackAction(_ sender: Any) {
+        
+        self.btBacktrack.isEnabled = false
+        self.createCross.isEnabled = false
+        
         let queue = DispatchQueue(label: QUEUE_NAME)
         
         queue.async {
             let crosswordsGenerator = CrosswordsGenerator()
             crosswordsGenerator.words = self.words
-            crosswordsGenerator.columns = 30
-            crosswordsGenerator.rows = 28
-            crosswordsGenerator.amountOfWordsToFit = 20
+            crosswordsGenerator.columns = COLUMNS
+            crosswordsGenerator.rows = ROWS
+            crosswordsGenerator.amountOfWordsToFit = NUMBER_OF_WORDS
             crosswordsGenerator.debug = false
             crosswordsGenerator.occupyPlaces = false
             //crosswordsGenerator.fillAllWords = true
@@ -200,7 +211,7 @@ class GameViewController: UIViewController {
             
             printable = crosswordsGenerator.currentPrintable
             
-            print("br: \(bestResult.count), words: \(crosswordsGenerator.words.count)")
+            debugPrint("br: \(bestResult.count), words: \(crosswordsGenerator.words.count)")
             
             DispatchQueue.main.async {
                 self.scene.drawCrossword(print: printable)
@@ -209,6 +220,8 @@ class GameViewController: UIViewController {
                 for word in crosswordsGenerator.chosenWords {
                     printWords += "\(word)\n"
                 }
+                self.btBacktrack.isEnabled = true
+                self.createCross.isEnabled = true
                 
                 self.wordsView.text  = printWords
             }

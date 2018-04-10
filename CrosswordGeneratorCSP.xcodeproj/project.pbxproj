@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		048DFB24207AE2840070C365 /* MozaicGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DFB23207AE2840070C365 /* MozaicGenerator.swift */; };
 		163B536C1EA3DB4900732452 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B536B1EA3DB4900732452 /* AppDelegate.swift */; };
 		163B536E1EA3DB4900732452 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 163B536D1EA3DB4900732452 /* GameScene.sks */; };
 		163B53701EA3DB4900732452 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 163B536F1EA3DB4900732452 /* Actions.sks */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		048DFB23207AE2840070C365 /* MozaicGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MozaicGenerator.swift; sourceTree = "<group>"; };
 		163B53681EA3DB4900732452 /* CrosswordGeneratorCSP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrosswordGeneratorCSP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		163B536B1EA3DB4900732452 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		163B536D1EA3DB4900732452 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				163B53831EA3DB6400732452 /* Array2D.swift */,
 				163B53841EA3DB6400732452 /* ArrayShuffle.swift */,
 				163B53851EA3DB6400732452 /* CrosswordsGenerator.swift */,
+				048DFB23207AE2840070C365 /* MozaicGenerator.swift */,
 			);
 			name = Solving;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				16A2E69F1EAAB80800C00D09 /* Letters.swift in Sources */,
 				16C5AA541EAAA1E4004C011E /* StreamReader.swift in Sources */,
 				163B53741EA3DB4900732452 /* GameViewController.swift in Sources */,
+				048DFB24207AE2840070C365 /* MozaicGenerator.swift in Sources */,
 				163B53881EA3DB6400732452 /* CrosswordsGenerator.swift in Sources */,
 				163B53BA1EA4053200732452 /* Level.swift in Sources */,
 				16C5AA561EAAB3B8004C011E /* Extensions.swift in Sources */,
