@@ -52,7 +52,7 @@ class Letter : CustomStringConvertible, Hashable {
     }
     
     var hashValue: Int {
-        return row*10 + column
+        return (row * 10) + column
     }
 }
 

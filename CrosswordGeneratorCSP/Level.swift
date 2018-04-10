@@ -8,17 +8,15 @@
 
 import Foundation
 
-
-let NumColumns = 30
-let NumRows = 28
+//let NumColumns = 30
+//let NumRows = 28
 
 class Level {
-    fileprivate var letters = ArraySprite<Letter>(columns: NumColumns, rows: NumRows)
-    
+    fileprivate var letters = ArraySprite<Letter>(columns: COLUMNS, rows: ROWS)
     
     func letterAt(column: Int, row: Int) -> Letter? {
-        assert(column >= 0 && column < NumColumns)
-        assert(row >= 0 && row < NumRows)
+        assert(column >= 0 && column < COLUMNS)
+        assert(row >= 0 && row < ROWS)
         return letters[column, row]
     }
     
@@ -29,18 +27,14 @@ class Level {
     private func createInitialLetters() -> Set<Letter> {
         var set = Set<Letter>()
         
-        // 1
-        for row in 0..<NumRows {
-            for column in 0..<NumColumns {
+        for row in 0..<ROWS {
+            for column in 0..<COLUMNS {
                 
-                // 2
                 var letterType = LetterType.random()
                 
-                // 3
                 let letter = Letter(column: column, row: row, letterType: letterType)
                 letters[column, row] = letter
                 
-                // 4
                 set.insert(letter)
             }
         }

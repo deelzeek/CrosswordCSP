@@ -58,6 +58,7 @@ open class CrosswordsGenerator {
     open var debug = true
     open var orientationOptimization = false
     open var occupiedPlaces: Array2D<Int>?
+    var primary = true
     
     open let NOT_OCCUPIED = 0
     open let ALREADY_OCCUPIED = 1
@@ -72,8 +73,7 @@ open class CrosswordsGenerator {
     
     // MARK: - Initialization
     
-    public init() {
-    }
+    public init() {}
     
     public init(columns: Int, rows: Int, maxLoops: Int = 2000, words: Array<String>) {
         self.columns = columns
@@ -92,24 +92,30 @@ open class CrosswordsGenerator {
         currentWords.removeAll()
         resultData.removeAll()
         
-        words.sort(by: {$0.lengthOfBytes(using: String.Encoding.utf8) > $1.lengthOfBytes(using: String.Encoding.utf8)})
+        //words.sort(by: {$0.lengthOfBytes(using: String.Encoding.utf8) > $1.lengthOfBytes(using: String.Encoding.utf8)})
+        
+        words.shuffle()
         
         if debug {
-            print(HEADER_WORDS)
-            print(words)
+            debugPrint(HEADER_WORDS)
+            debugPrint(words)
         }
+        let startTime = CFAbsoluteTimeGetCurrent()
         
         for word in words {
             
             if !currentWords.contains(word) {
                 _ = fitAndAdd(word)
-                print(HEADER_LOOP)
+                debugPrint(HEADER_LOOP)
                 self.printGrid()
             }
         }
         
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        debugPrint("Time elapsed for brute force: \(Double(timeElapsed)) s")
+        
         if debug {
-            print(HEADER_RESULT)
+            debugPrint(HEADER_RESULT)
             printGrid()
         }
         
@@ -162,7 +168,7 @@ open class CrosswordsGenerator {
         }
         
         if debug {
-            print(HEADER_FILL_ALL_WORDS)
+            debugPrint(HEADER_FILL_ALL_WORDS)
             printGrid()
         }
 
@@ -493,15 +499,16 @@ open class CrosswordsGenerator {
         words.sort(by: {$0.lengthOfBytes(using: String.Encoding.utf8) > $1.lengthOfBytes(using: String.Encoding.utf8)})
         
         if debug {
-            print(HEADER_WORDS)
-            print(words)
+            debugPrint(HEADER_WORDS)
+            debugPrint(words)
         }
-        
+        let startTime = CFAbsoluteTimeGetCurrent()
         _ = backtrack(0)
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        print("Time elapsed for backtracking: \(Double(timeElapsed)) s")
         
-
         if debug {
-            print(HEADER_RESULT)
+            debugPrint(HEADER_RESULT)
             printGrid()
         }
 
@@ -512,6 +519,8 @@ open class CrosswordsGenerator {
         if currentWords.count == self.amountOfWordsToFit {
             return true
         }
+        
+        //words.shuffle()
         
         for word in words {
             
@@ -540,7 +549,7 @@ open class CrosswordsGenerator {
         let can = fitAndAdd(word)
         
         if can {
-            print("cWord: \(self.currentWords.count), \(word)")
+            debugPrint("cWord: \(self.currentWords.count), \(word)")
             printGrid()
             return true
         }
@@ -562,20 +571,21 @@ open class CrosswordsGenerator {
         currentWords.removeAll()
         resultData.removeAll()
         
-        words.sort(by: {$0.lengthOfBytes(using: String.Encoding.utf8) > $1.lengthOfBytes(using: String.Encoding.utf8)})
+        //words.sort(by: {$0.lengthOfBytes(using: String.Encoding.utf8) > $1.lengthOfBytes(using: String.Encoding.utf8)})
         
         if debug {
-            print(HEADER_WORDS)
-            print(words)
+            debugPrint(HEADER_WORDS)
+            debugPrint(words)
         }
         
-        _ = forwardChecking(words, grid!, 0)
         
-        fillAllRemainedWords()
+        let startTime = CFAbsoluteTimeGetCurrent()
+        _ = forwardChecking(Array(words[0...3000]), grid!, 0)
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        debugPrint("Time elapsed for forwardchecking: \(Double(timeElapsed)) s")
+        
         
     }
-    
-    var primary = true
     
     private func forwardChecking(_ next: Array<String>,_ grid: Array2D<String>,_ deepness: Int) -> Bool {
         
@@ -592,7 +602,7 @@ open class CrosswordsGenerator {
         }
         
         if debug {
-            print("\(HEADER_GRID) and D: \(deepness)")
+            //print("\(HEADER_GRID) and D: \(deepness)")
             printGrid()
         }
         
@@ -610,6 +620,8 @@ open class CrosswordsGenerator {
                     if forwardChecking(nextDomain, nextGrid, deepness + 1) {
                         return true
                     }
+                    
+                    primary = true
                 }
                 
                 self.currentWords.removeLast()
@@ -640,7 +652,7 @@ open class CrosswordsGenerator {
         let can = fitAndAdd(word)
         
         if can {
-            print("cWord: \(self.currentWords.count), \(word)")
+            debugPrint("cWord: \(self.currentWords.count), \(word)")
             return true
         }
         
@@ -714,7 +726,7 @@ open class CrosswordsGenerator {
             for j in 0 ..< columns {
                 s += grid![j, i]
             }
-            print(s)
+            debugPrint(s)
         }
         
     }
@@ -725,7 +737,7 @@ open class CrosswordsGenerator {
             for j in 0 ..< columns {
                 s += "\(occupiedPlaces![j, i])"
             }
-            print(s)
+            debugPrint(s)
         }
     }
     
