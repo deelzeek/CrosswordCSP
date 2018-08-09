@@ -35,7 +35,7 @@ let ATTEMPT_TO_READ = "Attempt to read from closed file"
 
 let SYMBOL_EMPTY_GRID = "-"
 
-let HEADER_WORDS = "--- Words ---"
+let HEADER_WORDS = "--- Grid ---"
 let HEADER_RESULT = "--- Result ---"
 let HEADER_LOOP = "##### Loop #####"
 let HEADER_FILL_ALL_WORDS = "--- Fill All Words ---"
