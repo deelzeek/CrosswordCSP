@@ -30,7 +30,7 @@ open class HirokiGenerator {
     open var rows: Int = 0
     open var maxLoops: Int = 2000
     open var words = Array<String>()
-    var hirokuTemplate = Array<String>()
+    var hirokiTemplate = Array<String>()
     
     open var result: Array<Word> {
         get {
@@ -88,7 +88,7 @@ open class HirokiGenerator {
         
         for rw in 0..<rows {
             for cl in 0..<columns {
-                grid[cl, rw] = self.hirokuTemplate[(columns * rw) + cl]
+                grid[cl, rw] = self.hirokiTemplate[(columns * rw) + cl]
             }
         }
         
@@ -329,14 +329,11 @@ open class HirokiGenerator {
     }
     
     private func backtrackHiroki(depth: Int) -> Bool {
-        // All cells are filled
-//        if isHirokiSolved() {
-//            return true
-//        }
-//
+        
         let letters = self.getRepeatedLetters()
         
-        if letters.count == 0 {
+        // If no left, then found
+        if letters.isEmpty {
             return true
         }
         
@@ -345,62 +342,17 @@ open class HirokiGenerator {
                 // Set letter
                 self.setCell(letter.column, row: letter.row, value: emptySymbol)
                 
-                printGrid()
-                debugPrint("depth: \(depth), col: \(letter.column), row: \(letter.row)")
+                if debug {
+                    printGrid()
+                    debugPrint("depth: \(depth), col: \(letter.column), row: \(letter.row)")
+                }
                 
                 // Carry on searching
                 if backtrackHiroki(depth: depth + 1) {
                     return true
                 }
-                
-//                if (row == (rows - 1)) && (col < (columns - 1)) {
-//                    if backtrackHiroki(col: col + 1, row: 0, depth: depth + 1) {
-//                        return true
-//                    }
-//                } else if (row < (rows - 1) && (col < (columns - 1))) {
-//                    if backtrackHiroki(col: col, row: row + 1, depth: depth + 1) {
-//                        return true
-//                    }
-//                } else if (col == (columns - 1) && (row <= (rows - 1))) {
-//                    if backtrackHiroki(col: col, row: row + 1, depth: depth + 1) {
-//                        return true
-//                    }
-//                }
             }
         }
-        
-//        if isRepeatedChar(col: col, row: row) {
-//
-//        }
-        
-        
-//        for word in words {
-//            if (self.canFitHere(col: col, row: row, letter: word)) {
-//                // Set letter
-//                self.setCell(col, row: row, value: word)
-//                self.currentWords.append(word)
-//
-//                printGrid()
-//                debugPrint("depth: \(depth), col: \(col), row: \(row)")
-//
-//                // Carry on searching
-//                if (row == (rows - 1)) && (col < (columns - 1)) {
-//                    if backtrackHiroki(col: col + 1, row: 0, depth: depth + 1) {
-//                        return true
-//                    }
-//                } else if (row < (rows - 1) && (col < (columns - 1))) {
-//                    if backtrackHiroki(col: col, row: row + 1, depth: depth + 1) {
-//                        return true
-//                    }
-//                } else if (col == (columns - 1) && (row <= (rows - 1))) {
-//                    if backtrackHiroki(col: col, row: row + 1, depth: depth + 1) {
-//                        return true
-//                    }
-//                }
-//            }
-//        }
-        
-        //currentWords.removeLast()
         removeLastWord()
         return false
     }
@@ -555,6 +507,87 @@ open class HirokiGenerator {
         return true
     }
     
+    //###################################################
+    //
+    // MARK: - Forward checking method
+    //
+    //###################################################
+    
+    open func generateWithForwardChecking() {
+        self.grid = self.filledGrid()
+        
+        self.occupiedPlaces = nil
+        self.occupiedPlaces = Array2D(columns: columns, rows: rows, defaultValue: NOT_OCCUPIED)
+        
+        currentWords.removeAll()
+        resultData.removeAll()
+
+        if debug {
+            debugPrint(HEADER_WORDS)
+            debugPrint(words)
+        }
+        
+        let letters = self.getRepeatedLetters()
+        
+        let startTime = CFAbsoluteTimeGetCurrent()
+        _ = forwardChecking(letters, grid!, 0)
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        debugPrint("Time elapsed for forwardchecking: \(Double(timeElapsed)) s")
+        
+        
+    }
+    
+    private func forwardChecking(_ next: Array<Word>,_ grid: Array2D<String>, _ depth: Int) -> Bool {
+        
+        if next.isEmpty {
+            return true
+        }
+        
+        if debug {
+            printGrid()
+        }
+        
+        
+        var nextDomain: Array<Word> = next
+        var nextGrid = self.grid!.copy()
+        
+        for letter in next {
+            if isMutableCell(col: letter.column, row: letter.row) {
+                // Set letter
+                self.setCell(letter.column, row: letter.row, value: emptySymbol)
+                if !nextDomain.isEmpty {
+                    nextDomain.removeFirst()
+                }
+                nextGrid = self.grid!.copy()
+                
+                if debug {
+                    printGrid()
+                    debugPrint("depth: \(depth), col: \(letter.column), row: \(letter.row)")
+                }
+                
+                // Carry on searching
+                if forwardChecking(nextDomain, nextGrid, depth + 1) {
+                    return true
+                }
+                
+                self.resultData.removeLast()
+                self.grid = nextGrid.copy()
+            } else {
+                nextDomain = nextDomain.filter({ $0.column != letter.column && $0.row != letter.row})
+            }
+        }
+        
+        while !forwardChecking(nextDomain, nextGrid, depth + 1) {
+            if nextDomain.isEmpty {
+                return false
+            } else {
+                nextDomain.removeFirst()
+            }
+        }
+        return true
+        
+    }
+    
     
     func setCell(_ column: Int, row: Int, value: String) {
         grid![column, row] = value
@@ -625,7 +658,7 @@ open class HirokiGenerator {
         var r = last.row
         var direction = last.direction
         
-        self.grid![c, r] = self.hirokuTemplate[(c * r) + c]
+        self.grid![c, r] = self.hirokiTemplate[(c * r) + c]
         
         //print("REMOVE WORD")
         

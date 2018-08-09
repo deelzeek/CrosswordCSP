@@ -41,6 +41,6 @@ let HEADER_LOOP = "##### Loop #####"
 let HEADER_FILL_ALL_WORDS = "--- Fill All Words ---"
 let HEADER_GRID = "###### Grid ##### "
 
-let COLUMNS = 6
-let ROWS = 6
+let COLUMNS = 8
+let ROWS = 8
 let NUMBER_OF_WORDS = 20
